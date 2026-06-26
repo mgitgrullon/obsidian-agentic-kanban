@@ -1,0 +1,65 @@
+# Agentic Workflow — configuration
+# ---------------------------------
+# Keyed by machine hostname so this ONE file (synced with the vault) works
+# across all your machines (Windows, Mac, ...). Each machine reads only its
+# own block. After editing, run `/workflow-doctor` to verify everything is green.
+#
+# `/workflow-init` copies this file to  .claude/agentic-workflow/config.yaml  in your vault
+# and adds a machine block for the current host. Edit reposRoot / worktreeRoot / provider, then
+# run `/workflow-doctor`.
+
+defaults:
+  # Paths are relative to the Obsidian vault root.
+  boardPath: "Kanban/Agentic Workflow Board.md"
+  taskNotesFolder: "Tasks/Agentic"
+  # Column names must match the board's "## Heading" lanes exactly.
+  columns: ["Backlog", "Ready", "Blocked", "In Progress", "In Review", "Done"]
+  concurrency: 3          # max parallel Developer subagents per tick
+  maxReviewRounds: 2      # internal dev<->reviewer rounds before a branch is pushed
+  archiveAfterDays: 5     # move Done cards older than this into the ## Archive section
+  loopInterval: "15m"     # used with: /loop 15m /backlog-manager
+  artifactTag: "#artifact"  # tag a Backlog card with this → "artifact" delivery (no branch/commit/PR)
+  reworkTag: "#rework"      # tag an In Review card with this (+ note feedback) → revise the existing PR
+  artifactDir: "docs"       # default folder in the target repo for delivered artifacts
+  isolation: "worktree"   # worktree | serial — how same-repo tickets avoid colliding.
+                          #   worktree: each ticket gets its own git worktree (parallel-safe,
+                          #             never touches your own checkout).
+                          #   serial:   one shared checkout, same-repo tickets run one at a time.
+  models:                 # model per spawned subagent.  opus | sonnet | haiku | inherit
+    developer: opus       #   does the real code changes — most capable
+    codeReviewer: opus    #   review-before-push gate — thorough
+    # NOTE: the Backlog Manager is NOT a subagent — it runs in the /loop session, so its model is
+    #       whatever you set with /model before launching the loop (it cannot be pinned here).
+
+# Per-machine settings. Key = hostname (echo %COMPUTERNAME% on Windows / `hostname` on macOS/Linux).
+# `/workflow-init` adds a block for the current machine; copy it for each new machine.
+machines:
+  # --- Windows example ---
+  # MY-PC:
+  #   os: windows
+  #   reposRoot: "C:/Users/you/Documents/GitHub"
+  #   worktreeRoot: "C:/Users/you/Documents/agent-worktrees"   # KEEP OUTSIDE reposRoot
+  #   git:    { client: cli }                                  # cli | mcp
+  #   review: { provider: github-gh }                          # github-gh | github-mcp | gitlab-mcp | none
+  #
+  # --- macOS example ---
+  # MY-MACBOOK:
+  #   os: macos
+  #   reposRoot: "/Users/you/GitHub"
+  #   worktreeRoot: "/Users/you/agent-worktrees"
+  #   git:    { client: cli }
+  #   review: { provider: github-gh }
+
+# MCP servers the doctor pings as part of the status check.
+mcp:
+  required:
+    - name: "Atlassian"        # Jira is the read-only source of truth (omit if you don't use Jira)
+      check: "atlassianUserInfo"
+  optional:
+    - name: "github"
+    - name: "gitlab"
+
+# Safety rails (enforced by the Developer agent).
+safety:
+  neverPushBranches: ["main", "master"]   # refuse to commit/push when on these
+  excludeVaultAsRepo: true                 # never run the dev git flow on the vault itself

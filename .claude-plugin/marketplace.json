@@ -1,0 +1,12 @@
+{
+  "name": "obsidian-agentic-kanban",
+  "owner": { "name": "Mario Grullón" },
+  "plugins": [
+    {
+      "name": "obsidian-agentic-kanban",
+      "source": "./",
+      "description": "Self-running dev pipeline driven by an Obsidian-Kanban board (Backlog Manager + Developer/Code Reviewer subagents, review-before-push, worktree isolation, human-in-the-loop).",
+      "version": "1.0.0"
+    }
+  ]
+}
