@@ -21,6 +21,14 @@ defaults:
   artifactTag: "#artifact"  # tag a Backlog card with this → "artifact" delivery (no branch/commit/PR)
   reworkTag: "#rework"      # tag an In Review card with this (+ note feedback) → revise the existing PR
   artifactDir: "docs"       # default folder in the target repo for delivered artifacts
+  typeTags:               # ticket-type tag → conventional-commit prefix (and branch prefix)
+    "#feat": feat
+    "#bug": fix
+    "#chore": chore
+    "#docs": docs
+    "#refactor": refactor
+  autoClassify: true      # if a Ready ticket has no kind/type tag, the manager infers one
+                          #   (artifact vs code, and feat/bug/...) and tags it before dispatch
   isolation: "worktree"   # worktree | serial — how same-repo tickets avoid colliding.
                           #   worktree: each ticket gets its own git worktree (parallel-safe,
                           #             never touches your own checkout).

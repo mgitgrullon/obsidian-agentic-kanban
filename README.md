@@ -55,14 +55,21 @@ across machines). Key knobs: `reposRoot`, `worktreeRoot`, `review.provider`, `co
 
 ## Tags
 
-Tags on the cards drive special handling. The names are configurable (`artifactTag`, `reworkTag` in
-`config.yaml`); defaults below.
+Tags on the cards drive special handling. The names are configurable (`artifactTag`, `reworkTag`,
+`typeTags` in `config.yaml`); defaults below.
 
 | Tag | Who sets it | On which card | What it does |
 |-----|-------------|---------------|--------------|
-| `#artifact` | **you** | a `Backlog` card | Deliver an untracked file (default `docs/`, or a path named in the ticket) — **no branch/commit/PR**. Card goes straight to `Done` with a `📄 <path>` marker. |
+| `#feat` | you (or auto) | a `Backlog` card | Marks a **feature** — sets the commit/branch prefix to `feat:`. |
+| `#bug` | you (or auto) | a `Backlog` card | Marks a **bug fix** — sets the commit/branch prefix to `fix:`. (`#chore`/`#docs`/`#refactor` also supported via `typeTags`.) |
+| `#artifact` | you (or auto) | a `Backlog` card | Deliver an untracked file (default `docs/`, or a path named in the ticket) — **no branch/commit/PR**. Card goes straight to `Done` with a `📄 <path>` marker. |
 | `#rework` | **you** | an `In Review` card | Put your feedback in the note's `## Human response`, then add this tag. Loop 2 revises the **existing branch** and pushes to the **same PR**, then clears the tag. (Don't move a reviewed card to `Ready` — that restarts it fresh.) |
 | `#needs-human` | **the agent** | a `Blocked` card | The agent couldn't proceed; the card shows a `❓ <question>` and the full question is in the note's `## Needs human` section. Answer under `## Human response` and drag the card `Blocked → Ready`; the manager clears the tag on resume. |
+
+**Forgot to tag?** With `autoClassify` on (default), the manager reads the ticket's intent and adds the
+right tag — artifact vs code, and which type (`#feat`/`#bug`/…) — before handing it to the developer,
+logging `auto-classified as <tag> (retag to override)`. If it can't tell artifact-vs-code, it asks via
+`#needs-human` rather than guessing.
 
 ## Day-to-day
 - Create Backlog cards (each with a repo link); move to `Ready` to queue.

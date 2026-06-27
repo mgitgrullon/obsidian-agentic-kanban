@@ -52,6 +52,13 @@ notes. Runs **interactively via `/loop`** (not headless — see "Why not headles
   case the agent writes into your real checkout, and only ever as a new untracked file. To iterate,
   add a note in `## Human response` and drag the card back to `Ready`; it regenerates.
 
+### Ticket type tags (optional, for code tickets)
+Tag a card `#feat`, `#bug`, `#chore`, `#docs`, or `#refactor` to set the conventional-commit prefix
+and branch type (`#bug`→`fix:`, `#feat`→`feat:`, …). **You don't have to tag** — with `autoClassify`
+on, the manager reads the ticket's intent and adds the right tag (artifact vs code, and which type)
+before handing it to the developer, logging `auto-classified as <tag> (retag to override)` in the note.
+If it can't tell artifact-vs-code, it asks via `#needs-human` instead of guessing.
+
 ### Answering a blocked ticket (human-in-the-loop)
 When a card is in `Blocked` it shows `#needs-human` and a `❓ <short question>` on the card:
 1. Open the card's task note → read the full question under `## Needs human — agent's question`.

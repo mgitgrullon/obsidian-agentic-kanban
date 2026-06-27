@@ -58,7 +58,20 @@ Take up to `concurrency` cards from `Ready`. For each:
    `## Human response` and continue. Then **move the card `Ready → In Progress`** (before dispatch)
    so the next tick can't re-pick it.
 
-Then classify each ticket and run the matching flow (cap concurrent developer subagents at `concurrency`):
+**Triage — fill in missing classification (when `autoClassify`).** Before dispatch, ensure the ticket
+is classified. Inspect the card + note (+ Jira snapshot):
+- has `artifactTag` → `kind: artifact`.
+- has a tag listed in `typeTags` → `kind: code`, `type: <its prefix>`.
+- otherwise **infer from intent** and tag it:
+  - deliverable is a doc / plan / file with no code change → add `artifactTag` (`kind: artifact`);
+  - new capability → add `#feat`; fixing broken behavior → add `#bug`; else the best-fit `typeTags`
+    entry (`#chore` / `#docs` / `#refactor`).
+  Add the inferred tag onto the **card** (kanban-board metadata), set `kind`/`type` in the note, and
+  append a history line `auto-classified as <tag> (retag to override)`.
+- If you genuinely can't tell **artifact vs code** (the consequential fork), block with `#needs-human`
+  and ask which — don't guess that one.
+
+Then run the matching flow (cap concurrent developer subagents at `concurrency`):
 
 **Artifact tickets** — `kind: artifact` (card has `config.artifactTag`). Deliverable is a file, not a PR:
 spawn a **developer** (`phase: artifact`).

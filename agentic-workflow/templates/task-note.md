@@ -1,6 +1,7 @@
 ---
 ticket: "{{TITLE}}"
 kind: "code"             # code (branch → PR)  |  artifact (untracked file in the checkout, no PR)
+type: ""                 # feat | fix | chore | docs | refactor (from the type tag; sets commit/branch prefix)
 jira: "{{JIRA_URL}}"
 repo: "{{REPO_LINK}}"
 repoPath: ""

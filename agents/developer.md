@@ -55,14 +55,15 @@ When you block (any `needs-human` return below), you MUST:
    Atlassian MCP (`getJiraIssue`/`fetch` ONLY — never transition/edit/comment) and write it into the note.
 2. **Clarity gate.** Ambiguous / contradictory / needs a human decision → write the question to
    `## Needs human` (per "Human handoff") and return `{status:"needs-human", reason}`. Never build on guesses.
-3. **Branch + worktree.** Find the default branch (`base`), pick a fresh feature branch name
-   `<type>/<short-kebab-desc>` (feat/fix/chore/docs/refactor/...), and create its worktree per
-   "Working location" above. **Never** use a `safety.neverPushBranches` name. Write `branch`, `base`,
+3. **Branch + worktree.** Find the default branch (`base`). Use the ticket's `type` from the note
+   (set from its type tag — `#feat`→`feat`, `#bug`→`fix`, etc.; default `chore` if unset) as the
+   branch prefix: `<type>/<short-kebab-desc>`. Create its worktree per "Working location" above. **Never** use a `safety.neverPushBranches` name. Write `branch`, `base`,
    `worktreePath`, and `pushed: false` into the note frontmatter.
 4. **Implement** the change inside the worktree, following the repo's own `CLAUDE.md`/conventions.
    (Per-worktree build state may need a fresh dependency install — do it if the project requires it.)
 5. **Validate** (tests/lint/typecheck if present). Can't get it green → record + return `{status:"needs-human", reason}`.
-6. **Commit locally** with a concise conventional-commit message (+ Claude Co-Authored-By trailer).
+6. **Commit locally** with a concise conventional-commit message — use the ticket `type` as the prefix
+   (e.g. `fix:` / `feat:`) (+ Claude Co-Authored-By trailer).
    **Do NOT push. Do NOT open a PR.** Update the note (history entry, `updated`).
 7. Return `{status:"ready-for-review", branch, base, changedFiles, validation}`.
 
