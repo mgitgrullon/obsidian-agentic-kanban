@@ -48,4 +48,5 @@ transition, edit, or comment.
 - Jira stays read-only; the note's snapshot is the working copy from here on.
 - One card per ticket; never duplicate an existing card.
 - If a ticket can't be fetched (permissions / unknown key), report it and skip — don't create a card.
-- New cards land in **Backlog**; you move them to **Ready** when you want the agent to start.
+- Leave every new card in **Backlog**. Do NOT move a card to `Ready` yourself — promoting
+  `Backlog → Ready` is the **human's** manual go-signal (their decision to start work), never this skill's job.

@@ -53,9 +53,9 @@ Take up to `concurrency` cards from `Ready`. For each:
 1. Ensure a task note exists in `taskNotesFolder` (create from
    `.claude/agentic-workflow/templates/task-note.md`, filling title/jira/repo from the card; set
    `kind: artifact` if the card carries `config.artifactTag`, else `kind: code`).
-2. **Resumed-from-Blocked?** If the card still carries a `❓ …` line or `#needs-human` (you answered
-   it and dragged it back to Ready), remove both from the card now — the developer will read your
-   `## Human response` and continue. Then **move the card `Ready → In Progress`** (before dispatch)
+2. **Resumed-from-Blocked?** If the card still carries a `❓ …` line or `#needs-human` (the human
+   answered it and dragged it back to Ready), remove both from the card now — the developer will read
+   the `## Human response` and continue. Then **move the card `Ready → In Progress`** (before dispatch)
    so the next tick can't re-pick it.
 
 **Triage — fill in missing classification (when `autoClassify`).** Before dispatch, ensure the ticket
@@ -155,4 +155,6 @@ blocked, merged, archived. Keep it short.
   With `isolation: serial`, you MUST NOT run two developers on the same repo at once — group same-repo
   tickets and process them one at a time.
 - Full-auto is allowed up to opening a ready-for-review PR; humans merge. Never push protected branches.
+- **Never promote `Backlog → Ready`** — that move is the human's manual go-signal. You only ever read
+  Backlog; you act on cards once the human has placed them in `Ready`.
 - When in doubt about a ticket, choose `Blocked` + `#needs-human` over guessing.
