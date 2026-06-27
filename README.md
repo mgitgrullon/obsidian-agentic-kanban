@@ -23,6 +23,8 @@ per ticket, spawns **Developer** and **Code Reviewer** subagents — with review
 - **Durable continuity** — all state lives in per-ticket task notes (survives restarts), not session ids.
 - **Human-in-the-loop** — blocked tickets ask a question in the note; you answer and drag the card back.
 - **Two ticket kinds** — code (→ PR) and `#artifact` (an untracked file delivered into the repo, no PR).
+- **Priority & dependencies** — `Ready` lane order sets priority; `dependsOn` holds a ticket until its
+  blockers reach Done (marking it `⏳ waiting on <dep>`).
 - **Cost-aware** — cheap idle ticks, cached health checks, pinned subagent models.
 
 ## Install

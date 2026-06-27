@@ -49,7 +49,19 @@ interrupted prior tick — resume it from its note's `status`/`branch`/`pushed`/
 Reconciled cards count against `concurrency` for this tick.
 
 ## 2. Loop 1 — process `Ready`
-Take up to `concurrency` cards from `Ready`. For each:
+Consider `Ready` cards **in lane order — top is highest priority**. Walk them top-down and start up to
+`concurrency` cards that are *unblocked*; skip any whose dependencies aren't satisfied yet (no
+head-of-line blocking — just move on to the next eligible card).
+
+**Dependency gate (check before starting each card).** Read the note's `dependsOn` (ticket keys / note
+names). A dependency is *satisfied* when its card is in `Done`/`Archive` (or its note is `status: done`).
+- none / all satisfied → the card is **eligible**.
+- any unsatisfied → leave it in `Ready`, put a `⏳ waiting on <dep>` marker on the card (kanban-board
+  metadata), and skip it this tick — it does **not** consume a concurrency slot.
+- a `dependsOn` entry that matches no card on the board, or a dependency **cycle** → block with `#needs-human`.
+When a card becomes eligible, remove any stale `⏳ waiting…` marker before dispatch.
+
+For each **eligible** card, in priority order until `concurrency` are dispatched:
 1. Ensure a task note exists in `taskNotesFolder` (create from
    `.claude/agentic-workflow/templates/task-note.md`, filling title/jira/repo from the card; set
    `kind: artifact` if the card carries `config.artifactTag`, else `kind: code`).

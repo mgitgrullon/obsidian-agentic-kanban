@@ -2,6 +2,8 @@
 ticket: "{{TITLE}}"
 kind: "code"             # code (branch → PR)  |  artifact (untracked file in the checkout, no PR)
 type: ""                 # feat | fix | chore | docs | refactor (from the type tag; sets commit/branch prefix)
+priority: ""             # optional hint (e.g. Jira: highest|high|medium|low); board lane order is primary
+dependsOn: []            # ticket keys / note names that must reach Done before this ticket can start
 jira: "{{JIRA_URL}}"
 repo: "{{REPO_LINK}}"
 repoPath: ""

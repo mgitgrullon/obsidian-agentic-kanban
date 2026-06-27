@@ -22,7 +22,7 @@ transition, edit, or comment.
 3. **For each ticket:**
    a. **Fetch (read-only).** Use the Atlassian MCP — load tools with ToolSearch, then use
       `getJiraIssue` and/or `fetch` ONLY. Pull: summary (title), description, issue type, status,
-      priority, key, and the canonical URL.
+      priority, **issue links (especially "is blocked by")**, key, and the canonical URL.
    b. **Resolve the repo link** (every Backlog card needs one):
       - use the `repo:` arg if given; else
       - `projectRepoMap[<project key>]` if mapped; else
@@ -34,7 +34,8 @@ transition, edit, or comment.
       (the manager's triage auto-classifies it later).
    d. **Create the task note** in `<taskNotesFolder>/`, named `<KEY> <short-slug>.md`, from
       `.claude/agentic-workflow/templates/task-note.md`. Fill frontmatter: `ticket` (title),
-      `kind: code`, `type` (mapped prefix or empty), `jira` (URL), `repo` (resolved), `status: backlog`,
+      `kind: code`, `type` (mapped prefix or empty), `priority` (from Jira priority), `dependsOn`
+      (KEYs from "is blocked by" links), `jira` (URL), `repo` (resolved), `status: backlog`,
       `created`/`updated` (today). Write the Jira summary + description into `## Jira snapshot`, seed
       `## Requirements / acceptance` from the description, and add a `## History` line
       `imported from Jira <KEY> (<today>)`.

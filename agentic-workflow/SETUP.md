@@ -53,6 +53,13 @@ notes. Runs **interactively via `/loop`** (not headless — see "Why not headles
   case the agent writes into your real checkout, and only ever as a new untracked file. To iterate,
   add a note in `## Human response` and drag the card back to `Ready`; it regenerates.
 
+### Priority & dependencies
+- **Priority = `Ready` lane order.** The manager works `Ready` top-down, so drag the most important
+  card to the top. (Jira priority, if imported, is saved in the note as a hint, but lane order wins.)
+- **Dependencies.** Set `dependsOn: [KEY, …]` in a ticket's note (or let `/jira-to-backlog` import Jira
+  "is blocked by" links). The manager won't start a ticket until every dependency reaches `Done`; while
+  it waits, the card shows `⏳ waiting on <dep>` and the manager moves on to the next unblocked card.
+
 ### Ticket type tags (optional, for code tickets)
 Tag a card `#feat`, `#bug`, `#chore`, `#docs`, or `#refactor` to set the conventional-commit prefix
 and branch type (`#bug`→`fix:`, `#feat`→`feat:`, …). **You don't have to tag** — with `autoClassify`

@@ -2,7 +2,7 @@
   "name": "obsidian-agentic-kanban",
   "displayName": "Obsidian Agentic Kanban",
   "description": "A self-running dev pipeline driven by an Obsidian-Kanban board: a Backlog Manager spawns Developer and Code Reviewer subagents per ticket, with review-before-push, git worktree isolation, durable task notes, and a human-in-the-loop channel.",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "author": { "name": "Mario Grullón" },
   "homepage": "https://github.com/mgitgrullon/obsidian-agentic-kanban",
   "repository": "https://github.com/mgitgrullon/obsidian-agentic-kanban",
