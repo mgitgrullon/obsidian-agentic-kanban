@@ -53,6 +53,17 @@ across machines). Key knobs: `reposRoot`, `worktreeRoot`, `review.provider`, `co
 [`agentic-workflow/config.example.yaml`](agentic-workflow/config.example.yaml) and the full guide in
 [`agentic-workflow/SETUP.md`](agentic-workflow/SETUP.md).
 
+## Tags
+
+Tags on the cards drive special handling. The names are configurable (`artifactTag`, `reworkTag` in
+`config.yaml`); defaults below.
+
+| Tag | Who sets it | On which card | What it does |
+|-----|-------------|---------------|--------------|
+| `#artifact` | **you** | a `Backlog` card | Deliver an untracked file (default `docs/`, or a path named in the ticket) — **no branch/commit/PR**. Card goes straight to `Done` with a `📄 <path>` marker. |
+| `#rework` | **you** | an `In Review` card | Put your feedback in the note's `## Human response`, then add this tag. Loop 2 revises the **existing branch** and pushes to the **same PR**, then clears the tag. (Don't move a reviewed card to `Ready` — that restarts it fresh.) |
+| `#needs-human` | **the agent** | a `Blocked` card | The agent couldn't proceed; the card shows a `❓ <question>` and the full question is in the note's `## Needs human` section. Answer under `## Human response` and drag the card `Blocked → Ready`; the manager clears the tag on resume. |
+
 ## Day-to-day
 - Create Backlog cards (each with a repo link); move to `Ready` to queue.
 - Review/merge the PRs it opens. Need changes? Tag the card `#rework` + note feedback.
