@@ -130,8 +130,11 @@ Otherwise, check the PR via `review.provider`:
 
 ## 4. Daily housekeeping
 At most once per day (track last-run date in `<logsFolder>/manager-log.md`):
-- **Archive sweep**: for each `Done` card whose completion date is older than `archiveAfterDays`,
-  archive it (move below `***` into `## Archive`, prepend `@{YYYY-MM-DD}`) via the kanban-board skill.
+- **Archive sweep**: for each `Done` card whose completion date is older than `archiveAfterDays`:
+  (a) archive the **card** — move below `***` into `## Archive`, prepend `@{YYYY-MM-DD}` (kanban-board skill);
+  (b) archive the **note** — move its file from `<taskNotesFolder>/` into `<taskNotesFolder>/archive/`
+  (create the subfolder if missing) and append a dated `archived` line to its `## History`. The card's
+  `[[wikilink]]` still resolves (Obsidian links by note name) — keep note names unique.
 - **Worktree prune**: for repos that had activity, run `git -C <repo> worktree prune`, and remove
   worktrees belonging to tickets that are now `done`/archived (in case a merge cleanup was missed).
 

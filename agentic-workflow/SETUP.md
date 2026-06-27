@@ -12,7 +12,7 @@ notes. Runs **interactively via `/loop`** (not headless — see "Why not headles
 - `.claude/agentic-workflow/config.yaml` — hostname-keyed config (edit per machine)
 - `.claude/agentic-workflow/templates/task-note.md` — per-ticket durable record
 - `Kanban/Agentic Workflow Board.md` — the board
-- `Tasks/Agentic/tickets/` — per-ticket notes (one file each)
+- `Tasks/Agentic/tickets/` — per-ticket notes (old Done tickets move to `tickets/archive/`)
 - `Tasks/Agentic/logs/manager-log.md` — board-wide operational log (created on first use)
 
 ## Install on any machine — step by step
