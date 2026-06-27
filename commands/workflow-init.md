@@ -17,7 +17,8 @@ The plugin's bundled data lives at `${CLAUDE_PLUGIN_ROOT}` — copy from there.
 1. **Detect the machine.** Hostname (`$env:COMPUTERNAME` on Windows / `hostname` elsewhere) and OS.
 
 2. **Create folders** (if missing): `<vault>/.claude/agentic-workflow/templates`,
-   `<vault>/Tasks/Agentic`, `<vault>/Kanban`.
+   `<vault>/Tasks/Agentic/tickets`, `<vault>/Tasks/Agentic/logs`, `<vault>/Kanban`.
+   (Use `taskNotesFolder` / `logsFolder` from config if customized.)
 
 3. **Templates + docs** (copy if missing):
    - `${CLAUDE_PLUGIN_ROOT}/agentic-workflow/templates/task-note.md` → `<vault>/.claude/agentic-workflow/templates/task-note.md`

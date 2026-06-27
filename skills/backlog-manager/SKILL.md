@@ -13,15 +13,15 @@ Continuity lives in **task notes**, never in session ids (subagents are ephemera
 ## 0. Cheap idle check (do this FIRST — keeps empty ticks nearly free)
 Load `config.yaml`, detect hostname, merge `defaults` + this machine's block. Read **only the board**
 (`boardPath`) and count cards in `Ready`, `In Review`, `In Progress`.
-- If all three are empty **and** the daily housekeeping already ran today (per `_manager-log.md`),
-  append a one-line `idle` entry to `_manager-log.md` and **END THE TICK**. Do not run the doctor,
+- If all three are empty **and** the daily housekeeping already ran today (per `<logsFolder>/manager-log.md`),
+  append a one-line `idle` entry to `<logsFolder>/manager-log.md` and **END THE TICK**. Do not run the doctor,
   call any MCP, or read any notes. This is the common case overnight — it must stay cheap.
 - Otherwise continue.
 
 ## 1. Preflight gate (only when there's work)
-Run the `workflow-doctor` skill **unless** `_manager-log.md` shows a full doctor PASS within the last
+Run the `workflow-doctor` skill **unless** `<logsFolder>/manager-log.md` shows a full doctor PASS within the last
 60 minutes (reuse that verdict). If any **REQUIRED** check FAILs, append a short status line to
-`_manager-log.md` and **stop the tick**. Reuse the board you already read in step 0 — don't re-read it.
+`<logsFolder>/manager-log.md` and **stop the tick**. Reuse the board you already read in step 0 — don't re-read it.
 All board mutations go through the kanban-board skill (single-writer — only you).
 
 ## Efficiency rules (apply throughout)
@@ -30,7 +30,7 @@ All board mutations go through the kanban-board skill (single-writer — only yo
   about to dispatch a developer for that ticket.
 - **Lazy + bounded.** Don't read repos or diffs yourself (subagents do that). Process at most
   `concurrency` tickets per tick; the rest wait for the next tick.
-- **Quiet ticks.** Emit only a one-line summary to the chat; put all detail in notes / `_manager-log.md`
+- **Quiet ticks.** Emit only a one-line summary to the chat; put all detail in notes / `<logsFolder>/manager-log.md`
   so the loop session doesn't accumulate tokens over the day.
 
 ## 1.5 Reconcile `In Progress` (resume orphaned work)
@@ -129,14 +129,14 @@ Otherwise, check the PR via `review.provider`:
 - **Open, clean, awaiting human merge** → leave it; update note timestamp.
 
 ## 4. Daily housekeeping
-At most once per day (track last-run date in `_manager-log.md`):
+At most once per day (track last-run date in `<logsFolder>/manager-log.md`):
 - **Archive sweep**: for each `Done` card whose completion date is older than `archiveAfterDays`,
   archive it (move below `***` into `## Archive`, prepend `@{YYYY-MM-DD}`) via the kanban-board skill.
 - **Worktree prune**: for repos that had activity, run `git -C <repo> worktree prune`, and remove
   worktrees belonging to tickets that are now `done`/archived (in case a merge cleanup was missed).
 
 ## 5. Wrap up
-Append a one-line dated summary to `Tasks/Agentic/_manager-log.md`: counts of cards advanced,
+Append a one-line dated summary to `<logsFolder>/manager-log.md`: counts of cards advanced,
 blocked, merged, archived. Keep it short.
 
 ## Rules

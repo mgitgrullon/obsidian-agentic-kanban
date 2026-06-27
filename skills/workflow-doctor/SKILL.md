@@ -45,8 +45,8 @@ Mark each: ✅ PASS · ⚠️ WARN · ❌ FAIL. Note which are REQUIRED.
 - The `kanban:settings` JSON `list-collapse` array length equals the number of
   columns. If not → WARN (lane state will be off; fix when creating/editing the board).
 
-**task notes folder (WARN if missing)**
-- `taskNotesFolder` exists (create-on-first-use is fine; just report).
+**folders (WARN if missing)**
+- `taskNotesFolder` and `logsFolder` exist (create-on-first-use is fine; just report).
 
 **git client (REQUIRED)**
 - `git.client: cli` → covered by the git check above.

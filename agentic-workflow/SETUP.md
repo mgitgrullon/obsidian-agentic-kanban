@@ -12,7 +12,8 @@ notes. Runs **interactively via `/loop`** (not headless — see "Why not headles
 - `.claude/agentic-workflow/config.yaml` — hostname-keyed config (edit per machine)
 - `.claude/agentic-workflow/templates/task-note.md` — per-ticket durable record
 - `Kanban/Agentic Workflow Board.md` — the board
-- `Tasks/Agentic/` — task notes + `_manager-log.md` (created on first use)
+- `Tasks/Agentic/tickets/` — per-ticket notes (one file each)
+- `Tasks/Agentic/logs/manager-log.md` — board-wide operational log (created on first use)
 
 ## Install on any machine — step by step
 1. **Prerequisites:**
@@ -42,7 +43,7 @@ notes. Runs **interactively via `/loop`** (not headless — see "Why not headles
 ## Day-to-day
 - The manager moves cards and writes task notes; you review/merge PRs (full-auto opens them
   ready-for-review). Anything it can't handle lands in `Blocked` with `#needs-human`.
-- Watch `Tasks/Agentic/_manager-log.md` for a per-tick summary.
+- Watch `Tasks/Agentic/logs/manager-log.md` for a per-tick summary.
 
 ### Two kinds of ticket
 - **Code ticket (default):** branch in a worktree → review → push → PR. Card flows to `In Review` → `Done`.

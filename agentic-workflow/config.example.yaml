@@ -11,7 +11,8 @@
 defaults:
   # Paths are relative to the Obsidian vault root.
   boardPath: "Kanban/Agentic Workflow Board.md"
-  taskNotesFolder: "Tasks/Agentic"
+  taskNotesFolder: "Tasks/Agentic/tickets"   # per-ticket notes (one file each)
+  logsFolder: "Tasks/Agentic/logs"           # manager-log.md (board-wide operational log)
   # Column names must match the board's "## Heading" lanes exactly.
   columns: ["Backlog", "Ready", "Blocked", "In Progress", "In Review", "Done"]
   concurrency: 3          # max parallel Developer subagents per tick
