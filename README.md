@@ -11,7 +11,7 @@ per ticket, spawns **Developer** and **Code Reviewer** subagents — with review
 
 ## What you get
 - **Skills:** `backlog-manager` (the orchestrator, one tick), `kanban-board` (safe board edits),
-  `workflow-doctor` (preflight health check).
+  `workflow-doctor` (preflight health check), `jira-to-backlog` (import Jira tickets into the Backlog).
 - **Agents:** `developer` (implements in phases, review-before-push), `code-reviewer` (gates the branch).
 - **Command:** `workflow-init` (scaffolds the per-vault files so it's ready to use).
 
@@ -73,6 +73,7 @@ logging `auto-classified as <tag> (retag to override)`. If it can't tell artifac
 
 ## Day-to-day
 - Create Backlog cards (each with a repo link); move to `Ready` to queue.
+- Import from Jira: `/jira-to-backlog PROJ-123` (fetches read-only, makes a card + note + type tag).
 - Review/merge the PRs it opens. Need changes? Tag the card `#rework` + note feedback.
 - Stuck tickets land in `Blocked` with a `❓` question — answer in the note, drag back to `Ready`.
 

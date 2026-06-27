@@ -30,6 +30,8 @@ defaults:
     "#refactor": refactor
   autoClassify: true      # if a Ready ticket has no kind/type tag, the manager infers one
                           #   (artifact vs code, and feat/bug/...) and tags it before dispatch
+  projectRepoMap:         # optional: Jira project key → repo link, so /jira-to-backlog auto-fills repo
+    {}                    #   e.g.  PROJ: "https://github.com/org/proj"
   isolation: "worktree"   # worktree | serial — how same-repo tickets avoid colliding.
                           #   worktree: each ticket gets its own git worktree (parallel-safe,
                           #             never touches your own checkout).
