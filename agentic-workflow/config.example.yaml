@@ -32,6 +32,8 @@ defaults:
                           #   (artifact vs code, and feat/bug/...) and tags it before dispatch
   projectRepoMap:         # optional: Jira project key → repo link, so /jira-to-backlog auto-fills repo
     {}                    #   e.g.  PROJ: "https://github.com/org/proj"
+  learning: true          # developer keeps a per-repo "lessons learned" note (reads + curates durable facts)
+  knowledgeFolder: "Knowledge/agentic"   # per-repo note at <knowledgeFolder>/repos/<repo-name>.md
   isolation: "worktree"   # worktree | serial — how same-repo tickets avoid colliding.
                           #   worktree: each ticket gets its own git worktree (parallel-safe,
                           #             never touches your own checkout).

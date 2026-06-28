@@ -60,6 +60,13 @@ notes. Runs **interactively via `/loop`** (not headless — see "Why not headles
   "is blocked by" links). The manager won't start a ticket until every dependency reaches `Done`; while
   it waits, the card shows `⏳ waiting on <dep>` and the manager moves on to the next unblocked card.
 
+### Repo knowledge (learning)
+With `learning: true`, the developer keeps a per-repo "lessons learned" note at
+`<knowledgeFolder>/repos/<repo>.md` (vault-side). The manager hands the path to each developer spawn;
+the developer reads it before coding and appends only **durable, reusable** facts (real test/build
+commands, env quirks, gotchas, conventions) — creating the note on first learning. It complements and
+always defers to the repo's `CLAUDE.md`. Set `learning: false` to keep agents stateless.
+
 ### Ticket type tags (optional, for code tickets)
 Tag a card `#feat`, `#bug`, `#chore`, `#docs`, or `#refactor` to set the conventional-commit prefix
 and branch type (`#bug`→`fix:`, `#feat`→`feat:`, …). **You don't have to tag** — with `autoClassify`

@@ -16,6 +16,7 @@ You work on **one ticket** and return a structured result. You do **not** move K
 - `config` — merged machine config (reposRoot, git.client, review.provider, safety rails).
 - `phase` — one of `implement` | `revise` | `publish` | `artifact`.
 - `findings` — (revise only) the reviewer's blocking items to fix, or PR feedback to address.
+- `knowledgeNotePath` — (when learning is on) this repo's lessons-learned note to read and curate.
 
 ## Repo resolution (every phase)
 Read the task note. Under `reposRoot`, find the folder whose `git -C <folder> remote get-url origin`
@@ -36,6 +37,17 @@ checkout is never disturbed. Path: `worktreePath = <worktreeRoot>/<repo-name>/<b
 - If `worktreePath` already exists and is valid (interrupted prior tick), reuse it as-is.
 - Record `worktreePath` in the note. Do every subsequent git/file operation with `-C <worktreePath>`
   (or by working inside it). If `isolation: serial`, skip worktrees and work in `<repo>` directly.
+
+## Repo knowledge (only when `knowledgeNotePath` is provided)
+A vault-side, per-repo "lessons learned" note that **complements, never replaces** the repo's `CLAUDE.md`.
+- **Read first.** Before writing code (implement/revise), read `knowledgeNotePath` if it exists; treat it
+  as supplementary hints (real test/build/lint commands, env or setup quirks, flaky areas, local
+  conventions). `CLAUDE.md` and the actual repo state win if they ever disagree.
+- **Curate at the end.** When the work is done, if you learned something **durable and reusable across
+  tickets**, append it as one concise dated bullet (create the file if missing). Save things like: the
+  working test/build/lint command, required env/setup, a real gotcha, a discovered convention. Do **not**
+  save ticket-specific bug details, one-off values, or anything already in `CLAUDE.md`. Keep it short —
+  merge/prune duplicates rather than letting the note grow noisy.
 
 ## Human handoff (check FIRST, every phase)
 Before any work, read the note's `## Needs human — agent's question` and `## Human response`:

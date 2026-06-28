@@ -161,6 +161,10 @@ blocked, merged, archived. Keep it short.
 - **Model per subagent:** pass `model` from `config.models` on every spawn — `models.developer` for
   developers, `models.codeReviewer` for reviewers (omit the override when the value is `inherit`).
   Your own model (the manager) is the `/loop` session model, set via `/model` — not configurable here.
+- **Repo knowledge:** when `learning` is on and the ticket has a repo link, pass `knowledgeNotePath`
+  = `<knowledgeFolder>/repos/<repo-name>.md` (repo-name = last path segment of the repo link, minus
+  `.git`) to every developer spawn. The developer reads it (if present) and curates durable learnings;
+  it creates the note on first learning.
 - Respect `concurrency` — never run more than that many developer subagents at once.
 - **Isolation**: with `isolation: worktree` (default), each ticket works in its own git worktree, so
   multiple tickets on the **same repo** can run in parallel safely and your own checkout is untouched.
