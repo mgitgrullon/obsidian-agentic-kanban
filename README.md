@@ -25,8 +25,9 @@ per ticket, spawns **Developer** and **Code Reviewer** subagents — with review
 - **Two ticket kinds** — code (→ PR) and `#artifact` (an untracked file delivered into the repo, no PR).
 - **Priority & dependencies** — `Ready` lane order sets priority; `dependsOn` holds a ticket until its
   blockers reach Done (marking it `⏳ waiting on <dep>`).
-- **Per-repo learning** (opt-in) — the developer keeps a vault-side "lessons learned" note per repo
-  (real test/build commands, gotchas, conventions), separate from and deferring to `CLAUDE.md`.
+- **Per-repo learning** (on by default; `/workflow-init` asks, or set `learning: false`) — the developer
+  keeps a vault-side "lessons learned" note per repo (real test/build commands, gotchas, conventions),
+  separate from and deferring to `CLAUDE.md`.
 - **Cost-aware** — cheap idle ticks, cached health checks, pinned subagent models.
 
 ## Install

@@ -39,6 +39,8 @@ The plugin's bundled data lives at `${CLAUDE_PLUGIN_ROOT}` — copy from there.
      - `review.provider` — `github-gh` | `gitlab-mcp` | `none` (default `github-gh`).
      Insert a block under `machines:` keyed by the hostname with `os`, `reposRoot`, `worktreeRoot`,
      `git: { client: cli }`, and `review: { provider: <chosen> }`. Use forward slashes in paths.
+   - **Learning** (per-repo lessons-learned notes) is **on by default**. Ask the user whether to keep it;
+     if they decline, set `learning: false` in the config.
 
 6. **Permissions (ask first — never write a broad allowlist silently).** If
    `<vault>/.claude/settings.local.json` has no `permissions` block, explain that an unattended `/loop`

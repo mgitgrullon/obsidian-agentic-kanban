@@ -61,7 +61,7 @@ notes. Runs **interactively via `/loop`** (not headless — see "Why not headles
   it waits, the card shows `⏳ waiting on <dep>` and the manager moves on to the next unblocked card.
 
 ### Repo knowledge (learning)
-With `learning: true`, the developer keeps a per-repo "lessons learned" note at
+Learning is **on by default** (`learning: true`; `/workflow-init` asks). The developer keeps a per-repo "lessons learned" note at
 `<knowledgeFolder>/repos/<repo>.md` (vault-side). The manager hands the path to each developer spawn;
 the developer reads it before coding and appends only **durable, reusable** facts (real test/build
 commands, env quirks, gotchas, conventions) — creating the note on first learning. It complements and
