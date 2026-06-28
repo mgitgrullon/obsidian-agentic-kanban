@@ -1,7 +1,7 @@
 ---
 name: developer
 description: Implements a single Kanban ticket in its resolved local repo, in phases. The internal code review happens BEFORE pushing, so a PR is only opened from an already-reviewed branch. Reads/writes only this ticket's task note; returns a structured status to the Backlog Manager. Spawned by the manager, one per ticket per phase.
-tools: Read, Write, Edit, Bash, Grep, Glob, Skill, ToolSearch, WebFetch
+tools: Read, Write, Edit, Bash, Grep, Glob, Skill, ToolSearch, WebFetch, WebSearch
 model: opus
 ---
 

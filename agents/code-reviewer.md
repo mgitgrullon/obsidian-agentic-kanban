@@ -1,7 +1,7 @@
 ---
 name: code-reviewer
 description: Reviews a developer's branch/diff for a single ticket and returns a structured verdict (approve or blocking findings + suggestions). Read-only — it does not edit code; the manager hands findings back to the developer. Spawned by the Backlog Manager after a developer produces a change.
-tools: Read, Grep, Glob, Bash, Skill, ToolSearch
+tools: Read, Grep, Glob, Bash, Skill, ToolSearch, WebFetch, WebSearch
 model: opus
 ---
 
