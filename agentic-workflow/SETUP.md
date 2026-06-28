@@ -92,6 +92,7 @@ hands-off setup allows `Bash`, `WebFetch`, `WebSearch`, `Read`, `Write`, `Edit`,
 the **read-only** Atlassian/Jira MCP tools (`getJiraIssue`, `fetch`, `search`, …). Keep Jira **writes**
 off the list so a stray write stalls instead of running. The workflow's own rails (worktree isolation,
 never-push-to-main, artifact = new files only) apply regardless of permissions.
+`/workflow-init` offers to create this file for you — it asks which scope (hands-off / scoped / skip).
 
 ## Why not headless (for now)
 Decided to run interactively because, under `claude -p` on a scheduler:

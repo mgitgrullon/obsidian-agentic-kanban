@@ -39,9 +39,22 @@ The plugin's bundled data lives at `${CLAUDE_PLUGIN_ROOT}` — copy from there.
      Insert a block under `machines:` keyed by the hostname with `os`, `reposRoot`, `worktreeRoot`,
      `git: { client: cli }`, and `review: { provider: <chosen> }`. Use forward slashes in paths.
 
-6. **Health check.** Invoke the `workflow-doctor` skill and show its report.
+6. **Permissions (ask first — never write a broad allowlist silently).** If
+   `<vault>/.claude/settings.local.json` has no `permissions` block, explain that an unattended `/loop`
+   stalls on permission prompts, and ask how to set it up:
+   - **Hands-off** → allow `Bash`, `WebFetch`, `WebSearch`, `Read`, `Write`, `Edit`, `Glob`, `Grep`, plus
+     the **read-only** Atlassian/Jira MCP tools (`atlassianUserInfo`, `getJiraIssue`, `fetch`, `search`,
+     `searchJiraIssuesUsingJql`, `getVisibleJiraProjects`, `getJiraIssueRemoteIssueLinks`). Leave Jira
+     **writes** off so a stray write stalls.
+   - **Scoped** → allow web + edits + `Bash(git:*)`/`Bash(gh:*)` + common runners
+     (`Bash(npm:*)`/`Bash(pnpm:*)`/`Bash(pytest:*)`/`Bash(go:*)`/`Bash(make:*)`); novel Bash still prompts.
+   - **Skip** → write nothing; permissions prompt each time.
+   Merge the chosen set into `settings.local.json` (create it if missing; don't clobber existing keys).
+   Note: settings take effect on the next session start.
 
-7. **Summary.** Print what was created/skipped and the next steps:
+7. **Health check.** Invoke the `workflow-doctor` skill and show its report.
+
+8. **Summary.** Print what was created/skipped and the next steps:
    ```
    /workflow-doctor      # re-run until READY
    /loop 15m /backlog-manager
