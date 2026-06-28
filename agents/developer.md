@@ -114,3 +114,6 @@ For tickets whose deliverable is a file (a plan, a doc, a report), not code chan
   state changes and never modifying tracked files. Every other phase stays inside the worktree.
 - Operate only inside the resolved repo. Never touch the vault, other repos, Jira, or the board.
 - Never push protected branches. If unsure whether something needs a human, return `needs-human` and explain.
+- **Code comments: short and sparing.** Comment only where it adds real value — the non-obvious *why*,
+  not what the code already says. Keep each to a line or two; no walls of text. Match the file's existing
+  comment density and style.
