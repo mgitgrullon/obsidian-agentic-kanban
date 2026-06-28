@@ -85,6 +85,14 @@ the card in `In Progress`), then clears `#rework` and returns it to `In Review`.
 > ⚠️ Do **not** move a reviewed card to `Ready` — that's treated as a brand-new ticket and would cut a
 > fresh branch and ignore the open PR. Use the `#rework` tag instead.
 
+## Permissions (for unattended runs)
+A `/loop` running unattended **stalls on permission prompts**, so allow-list what it needs in your
+vault's `.claude/settings.local.json` (per-user, gitignored — **not** shipped in the plugin). A
+hands-off setup allows `Bash`, `WebFetch`, `WebSearch`, `Read`, `Write`, `Edit`, `Glob`, `Grep`, plus
+the **read-only** Atlassian/Jira MCP tools (`getJiraIssue`, `fetch`, `search`, …). Keep Jira **writes**
+off the list so a stray write stalls instead of running. The workflow's own rails (worktree isolation,
+never-push-to-main, artifact = new files only) apply regardless of permissions.
+
 ## Why not headless (for now)
 Decided to run interactively because, under `claude -p` on a scheduler:
 - the **Jira/Atlassian MCP may be unavailable** (interactive auth),
