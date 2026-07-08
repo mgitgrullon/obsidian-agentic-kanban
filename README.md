@@ -9,6 +9,10 @@ per ticket, spawns **Developer** and **Code Reviewer** subagents — with review
 /loop 15m /backlog-manager  ──►  Backlog → Ready → Blocked → In Progress → In Review → Done → Archive
 ```
 
+<img width="4664" height="3584" alt="image" src="https://github.com/user-attachments/assets/43e685ba-23a7-4b88-9a46-72928295d6af" />
+
+
+
 ## What you get
 - **Skills:** `backlog-manager` (the orchestrator, one tick), `kanban-board` (safe board edits),
   `workflow-doctor` (preflight health check), `jira-to-backlog` (import Jira tickets into the Backlog).
